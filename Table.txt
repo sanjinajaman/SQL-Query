@@ -1,0 +1,163 @@
+################################### Table Demo #############################################
+
+CREATE TABLE employee(id int primary key,
+                      name varchar (50),
+                      manager_id int);
+                   
+
+
+
+CREATE TABLE course( id INT PRIMARY KEY,
+                    course varchar(30)
+                    );
+
+
+################################### Insert Data into Table  #############################################
+
+
+INSERT INTO course (id, course) VALUES (102,"english"), (105," math"), (103, "science"), (107, "computer science");
+
+
+
+INSERT INTO employee (id, name , manager_id)VALUES(101, "admin",103),
+                                                        (102,"bob",104),
+                                                        (103,"casey",null),
+                                                        (104, "donald",103);
+
+
+INSERT INTO course_enroll(s_id,c_id, since) VALUES (101,201,2016),
+                                       (02,202,2017),
+                                       (101,203,2017);
+
+
+#################################Cross JOIN/Product######################################
+SELECT * FROM r1 CROSS JOIN r2 ;
+
+SELECT * FROM r1   CROSS JOIN r2 ON r1.C=r2.C;
+
+##################################INNER JOIN######################################
+
+SELECT * FROM student INNER JOIN course ON student.id=course.id;
+
+##################Using Alias############################
+
+SELECT * FROM student  as s INNER JOIN course as c ON s.id=c.id;
+
+
+
+
+
+################################## LEFT JOIN ######################################
+
+
+SELECT * FROM student as left_table LEFT JOIN course AS right_table ON left_table.id=right_table.id;
+
+
+
+
+################################## RIGHT JOIN ######################################
+
+SELECT * FROM student as left_table RIGHT JOIN course AS right_table ON left_table.id=right_table.id;
+
+
+
+
+
+################################## FULL OUTER JOIN/ FULL JOIN/  ######################################
+
+
+
+SELECT * FROM student AS s LEFT JOIN course AS c ON s.id = c.id
+ 
+UNION
+
+SELECT * FROM student AS s RIGHT JOIN course AS c ON s.id = c.id;
+
+
+
+
+
+
+
+
+
+################################## LEFT Exclusive JOIN ######################################
+
+
+SELECT * FROM student as s LEFT JOIN course as c ON s.id=c.id WHERE c.id IS null;
+
+
+
+################################## Right Exclusive JOIN ######################################
+
+
+SELECT * FROM student as s RIGHT JOIN course as c ON s.id=c.id WHERE s.id IS null;
+
+
+
+
+
+
+
+
+################################## Right Exclusive JOIN ######################################
+
+
+SELECT* FROM student as a JOIN student as b ON a.id=b.id;
+
+
+
+
+
+
+
+
+
+
+
+
+################################## Self JOIN ######################################
+
+
+
+SELECT * FROM employee as a JOIN employee as b ON a.id=b.manager_id;
+
+
+SELECT a.name, b.name FROM employee as a JOIN employee as b ON a.id=b.manager_id;
+
+
+
+
+SELECT a.id ,a.name FROM employee as a JOIN employee as b ON a.id=b.manager_id;
+
+
+
+SELECT a.name as manager_name ,b.name as employee_name FROM employee as a JOIN employee as b ON a.id=b.manager_id;
+
+
+
+
+################################## Drop Primary Key from the table ######################################
+
+
+ALTER TABLE course_enroll
+DROP PRIMARY KEY;
+
+
+################################## Update table data ######################################
+
+UPDATE course_enroll SET s_id=102 WHERE s_id=2;
+
+
+
+Find student id who is enrolled in at leat two course
+
+SELECT * FROM course_enroll as a JOIN course_enroll as b WHERE a.s_id=b.s_id AND a.c_id <> b.c_id;  
+
+
+
+
+
+
+
+
